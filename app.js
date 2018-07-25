@@ -1,12 +1,7 @@
 var express = require('express');
 var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
 
-var index = require('./routes/index');
-var users = require('./routes/users');
+var bodyParser = require('body-parser');
 
 var app = express();
 
@@ -16,14 +11,8 @@ app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-
-app.use('/', index);
-app.use('/users', users);
 
 const CONTACT_ADDRESS = 'founders@devxlabs.co';
 
@@ -37,9 +26,9 @@ var mailer = require('nodemailer').createTransport({
 
 app.post('/contact', function(req, res) {
 	mailer.sendMail({
-		    from: req.body.first-name,
+		    from: req.body.firstName,
 		    to: [CONTACT_ADDRESS],
-		    last-name: req.body.last-name || '[No last name]',
+		    lastname: req.body.lastName || '[No last name]',
 		    email: req.body.email || '[No message]',
 		    phone: req.body.phone || 'NO PHONE',
 		    question: req.body.question || 'NO BODY',
